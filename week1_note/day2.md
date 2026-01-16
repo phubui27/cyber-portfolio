@@ -1,11 +1,18 @@
 Basic concepts:
 IP- địa chỉ máy, SOC dùng để truy nguồn tấn công
+
 LAN- mạng nội bộ, traffic lạ trong LAN rất đáng nghi
+
 Ping (ICMP)- kiểm tra host còn sống
+
 Port 22- SSH, SOC check brute force
+
 Port 53- DNS, SOC soi domain lạ
+
 Port 443- HTTPS, đọc log web
+
 src_IP: source IP (máy gửi đi)
+
 dst_IP: destination IP (máy nhận)
 
 Example 1: 
