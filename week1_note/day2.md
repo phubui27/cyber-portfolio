@@ -1,66 +1,73 @@
-Basic concepts:
+# Day 2 – Basic Network Concepts (SOC View)
 
-IP- địa chỉ máy, SOC dùng để truy nguồn tấn công
+## 1. Basic concepts
 
-LAN- mạng nội bộ, traffic lạ trong LAN rất đáng nghi
+- **IP**: địa chỉ của máy  
+  → SOC dùng để truy nguồn tấn công
 
-Ping (ICMP)- kiểm tra host còn sống
+- **LAN**: mạng nội bộ  
+  → traffic lạ trong LAN rất đáng nghi
 
-Port 22- SSH, SOC check brute force
+- **Ping (ICMP)**: kiểm tra host còn sống
 
-Port 53- DNS, SOC soi domain lạ
+- **Port 22 (SSH)**:  
+  → cho phép remote login, SOC theo dõi brute force
 
-Port 443- HTTPS, đọc log web
+- **Port 53 (DNS)**:  
+  → SOC soi domain lạ, DNS tunneling
 
-src_IP: source IP (máy gửi đi)
+- **Port 443 (HTTPS)**:  
+  → traffic web, SOC đọc log web
 
-dst_IP: destination IP (máy nhận)
+- **src_ip (Source IP)**: máy gửi request
 
-Example 1: 
+- **dst_ip (Destination IP)**: máy nhận request
 
-src_ip=10.0.0.5
+---
 
-dst_ip=8.8.8.8
+## 2. Private vs Public IP
 
-protocol=ICMP
+### Private IP ranges (IP nội bộ)
+- 10.0.0.0 – 10.255.255.255 (10.x.x.x)
+- 172.16.0.0 – 172.31.255.255
+- 192.168.0.0 – 192.168.255.255
 
--> Máy 10.0.0.5 gửi gói ICMP tới 8.8.8.8
+→ IP nằm ngoài các dải trên = **Public IP**
 
-các dải IP nội bộ: 
-10.0.0.0    – 10.255.255.255   (10.x.x.x)
+---
 
-172.16.0.0  – 172.31.255.255
+## 3. Log examples & SOC reasoning
 
-192.168.0.0 – 192.168.255.255
+### Example 1
+    src_ip=192.168.1.10
+    dst_ip=192.168.1.1
+    protocol=TCP
+    port=22
 
-ngoài ra -> public IP
+SOC reasoning:
+- Nội bộ → nội bộ  
+- Port 22 = SSH  
 
-Example 2:
+→ **SSH nội bộ, cần theo dõi vì có quyền truy cập hệ thống**
 
-src_ip=192.168.1.10 
+---
 
-dst_ip=192.168.1.1 
+### Example 3
+    src_ip=10.0.0.7
+    dst_ip=45.83.12.9
+    protocol=TCP
+    port=4444
 
-protocol=TCP 
+SOC reasoning:
+- Nội bộ → Internet  
+- Port 4444 = port lạ, thường xuất hiện trong malware / C2  
 
-port=22
+→ **Suspicious outbound connection via uncommon port (4444)**
 
--> nội bộ gửi cho nội bộ qua port = 22 (cần theo dõi vì port 22 là SSH có quyền truy cập hệ thống)
+---
 
-Example 3:
+## 4. Common ports (SOC focus)
 
-src_ip=10.0.0.7
-
-dst_ip=45.83.12.9
-
-protocol=TCP
-
-port=4444
-
--> Nội bộ gửi ra ngoài thông qua port 4444( rất đang ngờ vì port 4444 là port lạ, attacker hay dùng)
--> suspicious outbound connection via uncommon port (4444)
-
-Common ports:
-- Port 22: SSH, cần theo dõi brute force
-- Port 53: DNS, SOC soi domain lạ
-- Port 443: HTTPS, đọc log web
+- **22**: SSH → theo dõi brute force
+- **53**: DNS → soi domain lạ
+- **443**: HTTPS → đọc log web
