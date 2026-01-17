@@ -112,3 +112,5 @@
             This is a generic server error response.
             • Meaning: The server has encountered a situation it does not know how to handle.
             • Usage: It is a "catch-all" code used when no more specific 5XX status code is suitable.
+
+Day3/week1
