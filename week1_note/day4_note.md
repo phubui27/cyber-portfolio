@@ -1,4 +1,4 @@
-# Day 5 – Linux Basics for SOC (Knowledge Notes)
+# Day 4 – Linux Basics for SOC (Knowledge Notes)
 
 ## Purpose of Linux in SOC
 - SOC thường làm việc trên Linux server
