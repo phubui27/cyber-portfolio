@@ -1,7 +1,7 @@
 # WebGoat – HTTP Observation (SOC Perspective)
 
 ## Lab context
-- Platform: OWASP WebGoat
+- Platform: OWASP WebGoat (https://owasp.org/www-project-webgoat/)
 - Focus: HTTP request / response behavior
 - Perspective: Security Operations Center (SOC)
 
