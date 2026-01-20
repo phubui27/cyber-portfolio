@@ -1,194 +1,241 @@
-# Linux Fundamentals for SOC Analysts
-
-## Purpose
-This document summarizes the Linux fundamentals I have learned, rewritten from a **Security Operations Center (SOC) perspective**.  
-The focus is on understanding Linux as an environment where logs, processes, users, and system activities can be monitored and analyzed for security purposes.
+# Linux Fundamentals – SOC View
 
 ---
 ## WEEK 1
 
 ---
+## 1. Linux basics
 
-## 1. Linux ecosystem overview
+Linux:
+→ hệ điều hành mã nguồn mở, kế thừa UNIX  
+→ dùng phổ biến cho server, cloud, security tools  
+→ SOC thường làm việc trực tiếp trên Linux environment
 
-- Linux is an open-source operating system derived from UNIX principles.
-- It is developed and maintained by a global community under the Linux Foundation.
-- Linux is widely used in servers, cloud infrastructure, and security appliances.
+Linux Foundation:
+→ tổ chức bảo trợ Linux và nhiều dự án open-source  
+→ Linux được phát triển bởi cộng đồng toàn cầu
 
-SOC relevance:
-- Most enterprise servers, security tools, and logging systems run on Linux.
-- Understanding Linux fundamentals is essential for log analysis and incident investigation.
+SOC view:
+→ phần lớn log và security tool chạy trên Linux
 
 ---
 
 ## 2. Linux distributions
 
-There are three major Linux distribution families:
-- **Red Hat family** (RHEL, CentOS, Rocky Linux)
-- **Debian family** (Debian, Ubuntu)
-- **SUSE family** (openSUSE, SUSE Linux Enterprise)
+Linux distribution families:
+- Red Hat (RHEL, CentOS, Rocky)
+- Debian (Debian, Ubuntu)
+- SUSE (openSUSE)
 
-SOC relevance:
-- SOC analysts often encounter logs from different Linux distributions.
-- Core concepts are shared across all families.
+SOC view:
+→ khác distro nhưng concept giống nhau  
+→ SOC không cần nhớ distro, chỉ cần biết log ở đâu
 
 ---
 
 ## 3. Core Linux concepts
 
-- Linux is a **multi-user** and **multi-tasking** operating system.
-- Many system features are accessed through files or file-like objects.
-- Linux uses background services known as **daemons**.
-- A Linux system consists of the kernel plus tools for file, user, and package management.
+Multi-user:
+→ nhiều user dùng chung hệ thống  
+→ tăng attack surface
 
-SOC relevance:
-- Multiple users and services mean multiple potential attack surfaces.
-- Daemons generate logs that SOC analysts must monitor.
+Multi-tasking:
+→ nhiều process chạy đồng thời
 
----
+Daemon (service):
+→ process chạy nền  
+→ sinh ra system log quan trọng
 
-## 4. Disk, partitions, and boot process
-
-- A disk can be divided into multiple **partitions**.
-- A **filesystem** defines how data is stored and retrieved.
-- Linux boot process:
-  - BIOS/UEFI
-  - Bootloader
-  - Kernel
-  - initramfs
-  - init system
-
-SOC relevance:
-- Understanding the boot process helps during incident response and system recovery.
-- Separate partitions can limit damage during system compromise.
+SOC view:
+→ user + daemon là nguồn activity chính để theo dõi
 
 ---
 
-## 5. Desktop environment (GNOME) – overview only
+## 4. Disk, filesystem & boot
 
-- GNOME is a common Linux desktop environment.
-- It provides a graphical login manager (gdm) and user session management.
-- Each user has a home directory.
+Partition:
+→ chia ổ đĩa logic  
+→ giúp cô lập dữ liệu khi có sự cố
+
+Filesystem:
+→ cách Linux lưu & truy xuất file  
+→ log, config, system info đều là file
+
+Boot process:
+→ BIOS/UEFI → bootloader → kernel → init  
+→ hệ thống khởi động qua nhiều bước
+
+SOC view:
+→ hữu ích khi điều tra incident sau reboot
+
+---
+
+## 5. Desktop & user session (đã học qua)
+
+GNOME:
+→ desktop environment phổ biến  
+→ dùng gdm để quản lý login screen
+
+Login / Logout / Session:
+→ mỗi lần login tạo 1 session  
+→ logout kết thúc session
 
 SOC note:
-- Desktop themes and UI customization were covered but are **not directly relevant** to SOC daily work.
-- Session login and logout concepts are relevant for understanding user activity.
+→ UI, theme không phải trọng tâm SOC  
+→ session liên quan trực tiếp đến user activity
 
 ---
 
-## 6. System configuration and time management
+## 6. Time & system configuration
 
-- Linux internally uses **UTC** for timekeeping.
-- Time synchronization is commonly handled via **NTP**.
-- Network Manager manages wired, wireless, and VPN connections.
+UTC:
+→ Linux dùng UTC cho time nội bộ
 
-SOC relevance:
-- Accurate system time is critical for log correlation across systems.
-- Network configuration affects visibility and detection of suspicious connections.
+NTP:
+→ đồng bộ thời gian với Internet time server
+
+Network Manager:
+→ quản lý network & VPN
+
+SOC view:
+→ time chính xác rất quan trọng để correlate log  
+→ time sai → điều tra sai
 
 ---
 
 ## 7. Package management
 
-- Debian-based systems use **dpkg** and **apt**.
-- Red Hat-based systems use **RPM** and tools like **dnf**.
-- openSUSE uses **zypper**.
+Debian-based:
+→ dpkg, apt
 
-SOC relevance:
-- Package managers are used to install and update software.
-- Unexpected package installations may indicate compromise or misconfiguration.
+Red Hat-based:
+→ rpm, dnf
 
----
+SUSE:
+→ zypper
 
-## 8. Linux terminal and filesystem navigation
-
-- Linux supports virtual terminals and terminal emulators.
-- Users can log in locally or remotely.
-- Two types of paths:
-  - **Absolute paths**
-  - **Relative paths**
-
-Key commands:
-- `pwd`, `ls`, `cd` for navigation
-- `cd -` to return to the previous directory
-
-SOC relevance:
-- SOC analysts rely on the terminal to locate and access log files quickly.
+SOC view:
+→ package cài đặt bất thường có thể là dấu hiệu compromise
 
 ---
 
-## 9. File search and file handling
+## 8. Terminal & navigation
 
-- `locate` performs database-based file searches.
-- `find` searches directories recursively and can execute commands with `-exec`.
-- Hard and symbolic links allow flexible file referencing.
-- `touch` creates files or updates timestamps.
+Terminal:
+→ công cụ chính của SOC trên Linux
 
-SOC relevance:
-- Useful for locating logs, scripts, or suspicious files.
-- File timestamps are important during investigations.
+Absolute path:
+→ đường dẫn bắt đầu từ /
 
----
+Relative path:
+→ đường dẫn từ thư mục hiện tại
 
-## 10. Linux documentation and help systems
+Commands:
+- pwd → biết đang đứng ở đâu
+- ls → liệt kê file, tìm log
+- cd → di chuyển thư mục
+- cd - → quay lại thư mục trước
 
-- Linux documentation sources include:
-  - `man` pages
-  - `info`
-  - `--help` or `-h`
-  - Online documentation
-
-SOC relevance:
-- SOC analysts must quickly reference command usage during investigations.
-- Efficient use of documentation saves time under pressure.
+SOC view:
+→ SOC dùng terminal để tìm & đọc log, không dùng GUI
 
 ---
 
-## 11. Processes and system activity
+## 9. File search & file handling
 
-- Processes execute tasks on the system and are identified by **PID**.
-- Processes can be interactive or non-interactive.
-- Process priority can be adjusted using **nice** values.
+locate:
+→ tìm file nhanh bằng database
 
-Key commands:
-- `ps` to view running processes
-- `top` for real-time system and process monitoring
+find:
+→ tìm file đệ quy  
+→ SOC dùng để tìm log, script, file lạ
 
-SOC relevance:
-- Unusual or resource-heavy processes may indicate malware or abuse.
-- Process monitoring is essential during incident response.
+Hard link / Symbolic link:
+→ nhiều đường dẫn trỏ cùng file  
+→ attacker có thể lợi dụng để che giấu file
+
+touch:
+→ tạo file hoặc thay đổi timestamp
+
+SOC view:
+→ timestamp rất quan trọng khi điều tra incident
+
+---
+
+## 10. Linux documentation
+
+man:
+→ tài liệu chi tiết của command
+
+info:
+→ tài liệu dạng cây
+
+--help / -h:
+→ xem nhanh cách dùng
+
+SOC view:
+→ không cần nhớ cú pháp  
+→ biết cách tra nhanh khi cần
+
+---
+
+## 11. Processes & system activity
+
+Process:
+→ chương trình đang chạy trên hệ thống
+
+PID:
+→ định danh duy nhất của process
+
+Foreground / Background:
+→ process chạy trước / sau
+
+Commands:
+- ps → xem danh sách process
+- top → xem process & tài nguyên realtime
+
+SOC view:
+→ process lạ hoặc chiếm tài nguyên cao là dấu hiệu đáng nghi
 
 ---
 
 ## 12. Job scheduling
 
-- Linux supports background and foreground jobs.
-- `at` schedules one-time tasks.
-- `cron` schedules recurring tasks.
+at:
+→ chạy task 1 lần tại thời điểm chỉ định
 
-SOC relevance:
-- Attackers may use cron jobs for persistence.
-- SOC analysts must inspect scheduled tasks during investigations.
+cron:
+→ chạy task định kỳ
+
+SOC view:
+→ cron thường bị attacker dùng để persistence  
+→ bắt buộc kiểm tra khi điều tra incident
 
 ---
 
-## 13. Applications overview (high-level only)
+## 13. Applications (đã học qua)
 
-- Linux supports many applications:
-  - Web browsers
-  - Email clients
-  - Office suites
-  - Multimedia and graphics tools
+User applications:
+→ browser, mail, office, media, graphics
 
 SOC note:
-- These applications were covered at a high level.
-- They are **not the focus** of SOC operations but provide context for user activity.
+→ không phải trọng tâm SOC  
+→ chỉ để hiểu user activity bình thường
 
 ---
 
-## Key takeaways
+## Key takeaway (SOC mindset)
 
-- Linux is a core environment for SOC analysts.
-- Logs, processes, users, and scheduled tasks are primary investigation targets.
-- Understanding Linux fundamentals enables effective log analysis and incident response.
-- The goal is not system administration, but **security visibility and detection**.
+Linux:
+→ môi trường làm việc chính của SOC
+
+SOC tập trung vào:
+→ log  
+→ process  
+→ user  
+→ time  
+→ scheduled tasks
+
+Mục tiêu:
+→ quan sát – phát hiện – điều tra  
+→ không phải quản trị hệ thống
