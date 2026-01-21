@@ -35,6 +35,7 @@ Linux follows the principle **“Everything is a file”**.
 
 sudo mount /dev/sda5 /home
 sudo umount /home
+
 A filesystem must be mounted to be accessible.
 
 Mounting on a non-empty directory hides existing contents.
@@ -69,15 +70,18 @@ Compare text files: diff file1 file2
 
 file:
 file filename
+
 Determines the real file type by examining contents.
 
 Linux does not rely on file extensions.
 
 ## 7. Backup & Synchronization
 cp
-Simple local copy only.
-rsync -av --progress sourcedir destdir
-rsync --dry-run -av sourcedir destdir
+|Simple local copy only.|
+| :--- | 
+|rsync -av --progress sourcedir destdir|
+|rsync --dry-run -av sourcedir destdir|
+
 Efficient incremental backup and synchronization.
 
 Supports remote systems.
