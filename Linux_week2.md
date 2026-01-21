@@ -90,24 +90,32 @@ Warning: Dangerous if misused → always test with --dry-run.
 
 ## 8. Compression Utilities
 
-Tool,Characteristics
-gzip,"Fast, widely used"
-bzip2,"Better compression, mostly legacy"
-xz,"Best compression, slower"
-zip,Mainly for Windows compatibility
+| Tool  | Characteristics |
+| :--- | :--- |
+| gzip | "Fast, widely used" |
+| bzip2 | "Better compression, mostly legacy" |
+| xz | "Best compression, slower" |
+| zip | Mainly for Windows compatibility |
+
+---
 
 ## 9. Archiving with tar
 
 Create archive: tar cf backup.tar mydir
+
 Archive with compression:
+
 tar zcf backup.tar.gz mydir   # gzip
+
 tar jcf backup.tar.bz2 mydir  # bzip2
+
 tar Jcf backup.tar.xz mydir   # xz
 
 Extract: tar xf backup.tar.gz
 
 ## 10. Disk-to-Disk Copying (WARNING)
 dd: dd if=/dev/sda of=sda.mbr bs=512 count=1
+
 Copies raw disk or partition data.
 
 One incorrect command can destroy data permanently.
