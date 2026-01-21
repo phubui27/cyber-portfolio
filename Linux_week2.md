@@ -57,7 +57,7 @@ sudo mount server:/projects /mnt/nfs/projects
 diff
 Compare text files: diff file1 file2
 
-Common options:
+| Common options | Explain |
 | :--- | :--- |
 |-c | context output |
 
