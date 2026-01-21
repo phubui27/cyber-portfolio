@@ -60,13 +60,9 @@ Compare text files: diff file1 file2
 | Common options | Explain |
 | :--- | :--- |
 |-c | context output |
-
 |-r | recursive |
-
 |-q | quiet (only report differences) |
-
 |-i | ignore case |
-
 |-w | ignore whitespace |
 
 ## 6. File Type Identification
