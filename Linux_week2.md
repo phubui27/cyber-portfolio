@@ -58,16 +58,16 @@ diff
 Compare text files: diff file1 file2
 
 Common options:
+| :--- | :--- |
+|-c | context output |
 
--c: context output
+|-r | recursive |
 
--r: recursive
+|-q | quiet (only report differences) |
 
--q: quiet (only report differences)
+|-i | ignore case |
 
--i: ignore case
-
--w: ignore whitespace
+|-w | ignore whitespace |
 
 ## 6. File Type Identification
 
@@ -114,6 +114,7 @@ tar Jcf backup.tar.xz mydir   # xz
 Extract: tar xf backup.tar.gz
 
 ## 10. Disk-to-Disk Copying (WARNING)
+
 dd: dd if=/dev/sda of=sda.mbr bs=512 count=1
 
 Copies raw disk or partition data.
