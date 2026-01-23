@@ -29,7 +29,9 @@ User accessed company website via HTTPS
 
 Service: SSH (Port 22)
 Behavior: Failed login
+
 Frequency: Multiple
+
 Source IP: 192.168.1.20 (Internal IP – 192.168.x.x)
 
 Analysis:
@@ -44,7 +46,9 @@ Classification: Suspicious
 ## Alert 2: Single failed login attempt from user jdoe
 
 Behavior: Failed login
+
 Frequency: Single
+
 User: jdoe
 
 Analysis:
@@ -59,7 +63,9 @@ Classification: False Positive
 ## Alert 3: Outbound connection to port 4444 from 10.0.0.7
 
 Direction: Outbound connection
+
 Destination Port: 4444 (Uncommon port)
+
 Source IP: 10.0.0.7 (Internal IP – 10.x.x.x)
 
 Analysis:
@@ -74,7 +80,9 @@ Classification: Suspicious
 ## Alert 4: ICMP requests to multiple internal hosts
 
 Protocol: ICMP
+
 Behavior: ICMP requests (ping)
+
 Target: Multiple internal hosts
 
 Analysis:
@@ -89,7 +97,9 @@ Classification: Suspicious
 ## Alert 5: User accessed company website via HTTPS
 
 Protocol: HTTPS
+
 Behavior: Web access
+
 Target: Company website
 
 Analysis:
