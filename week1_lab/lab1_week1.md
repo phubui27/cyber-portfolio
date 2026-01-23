@@ -23,11 +23,12 @@ ICMP requests to multiple internal hosts
 
 User accessed company website via HTTPS
 
-## Alert Analysis Report
+## Alert Analysis Report:
 
 ## Alert 1: Multiple failed SSH login attempts from 192.168.1.20
 
 Service: SSH (Port 22)
+
 Behavior: Failed login
 
 Frequency: Multiple
