@@ -39,7 +39,11 @@ cat lab2_week1.log
 
 2024-01-10 09:15:25 src_ip=192.168.1.25 dst_ip=company.com protocol=HTTPS status=200
 
+---
+
 ## SOC Analysis Report: lab2_week1.log
+
+---
 
 ## Finding 1 – SSH Failed Login Attempts
 
