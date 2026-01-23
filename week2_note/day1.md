@@ -1,4 +1,4 @@
-# Day 2 – Basic Network Concepts (SOC View)
+# Day 1 – Basic Network Concepts (SOC View)
 
 ## 1. IP Address
 
